@@ -20,7 +20,7 @@ public class CsvReaderServiceImpl implements CsvReaderService {
 	
 	public void readAndLoadCSV() throws IOException {
 		
-		List<String> lines = Files.readAllLines(Paths.get("../goldenraspberryawards/src/main/resources/csv/movielist.csv"));
+		List<String> lines = Files.readAllLines(Paths.get("../golden-raspberry-awards/src/main/resources/csv/movielist.csv"));
 		for (String line : lines) {
 			if(line.contains("year")) {
 				continue;
