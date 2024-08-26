@@ -24,6 +24,7 @@ public class AwardServiceImpl implements AwardService{
 
     public ResponseDto getAwardIntervals() {
         List<Award> awards = repository.findAll();
+        
         Map<String, List<Integer>> producerYearsMap = new HashMap<>();
 
         // Agrupa os anos dos prêmios por produtor
@@ -42,21 +43,16 @@ public class AwardServiceImpl implements AwardService{
         for (Map.Entry<String, List<Integer>> entry : producerYearsMap.entrySet()) {
             List<Integer> years = entry.getValue();
             if (years.size() > 1) {
-                Collections.sort(years);
+                Collections.sort(years, Collections.reverseOrder());
 
-                int minInterval = years.get(1) - years.get(0);
-                int maxInterval = years.get(years.size() - 1) - years.get(0);
-
-                for (int i = 1; i < years.size(); i++) {
-                    int interval = years.get(i) - years.get(i - 1);
-                    minInterval = Math.min(minInterval, interval);
+                for (int i = 0; i < years.size(); i++) {
+                    int interval = years.get(i) - years.get(years.size() - 1);
+                    intervals.add(new Interval(entry.getKey(), interval, years.get(years.size() - 1), years.get(i)));
                 }
-
-                intervals.add(new Interval(entry.getKey(), minInterval, maxInterval, years.get(0), years.get(years.size() - 1)));
             }
         }
 
-        // Ordena os intervalos pelo menor intervalo
+        // Ordena os intervalos pelo valor do intervalo
         intervals.sort(Comparator.comparingInt(Interval::getInterval));
 
         // Filtra os menores e maiores intervalos

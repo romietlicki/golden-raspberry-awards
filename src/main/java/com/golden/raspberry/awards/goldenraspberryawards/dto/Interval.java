@@ -6,9 +6,9 @@ public class Interval {
     private int previousWin;
     private int followingWin;
 
-    public Interval(String producer, int minInterval, int maxInterval, int previousWin, int followingWin) {
+    public Interval(String producer, int interval, int previousWin, int followingWin) {
         this.producer = producer;
-        this.interval = maxInterval - minInterval;
+        this.interval = interval;
         this.previousWin = previousWin;
         this.followingWin = followingWin;
     }
@@ -44,7 +44,8 @@ public class Interval {
 	public void setFollowingWin(int followingWin) {
 		this.followingWin = followingWin;
 	}
-    
+
+
     
     
 
